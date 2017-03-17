@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
+  <input data-bind="textInput: pizzaFilter, event: { keyup: filterPizzaPlaces }">
   <ul data-bind="foreach: locations">
     <li data-bind="text: title, click: $parent.locationClick"></li>
   </ul>

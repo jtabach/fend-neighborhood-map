@@ -53,11 +53,45 @@ function initMap() {
 }
 
 function AppViewModel() {
-  this.locs = ko.observableArray(locations);
+  var self = this;
+  self.locs = ko.observableArray(locations);
 
+  this.pizzaFilter = ko.observable();
+
+  this.filterPizzaPlaces = function() {
+    console.log(this.pizzaFilter());
+  }
+
+  this.resetMarkers = function() {
+    for (var i=0; i < markers.length; i++) {
+        markers[i].setMap(null);
+    }
+    // setTimeout(function() {
+    //   var largeInfoWindow = new google.maps.InfoWindow();
+    //   var bounds = new google.maps.LatLngBounds();
+    //   for (var i = 0; i < locations.length; i++) {
+    //     var position = locations[i].location;
+    //     var title = locations[i].title;
+    //     var marker = new google.maps.Marker({
+    //       map: map,
+    //       position: position,
+    //       title: title,
+    //       animation: google.maps.Animation.DROP,
+    //       id: i
+    //     });
+    //     markers.push(marker);
+    //     bounds.extend(marker.position);
+    //     marker.addListener('click', function() {
+    //       populateInfoWindow(this, largeInfoWindow)
+    //     });
+    //   }
+    // },2000);
+  }
   this.locationClick = function() {
     console.log('testing1234');
+    self.resetMarkers();
   }
+
 }
 
 ko.applyBindings(new AppViewModel());
