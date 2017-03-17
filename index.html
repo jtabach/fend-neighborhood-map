@@ -8,7 +8,7 @@
 </head>
 <body>
   <input data-bind="textInput: pizzaFilter, event: { keyup: filterPizzaPlaces }">
-  <ul data-bind="foreach: locations">
+  <ul data-bind="foreach: locs">
     <li data-bind="text: title, click: $parent.locationClick"></li>
   </ul>
   <div id="map"></div>

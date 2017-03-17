@@ -3,7 +3,7 @@ var map;
 // yelp pizza query
 // https://api.yelp.com/v2/search/?location=San Francisco, CA&category_filter=pizza
 
-var locations = [
+var initialLocations = [
   { title: 'Katani Pizza', location: { lat: 37.773193359375,  lng: -122.450645446777 } },
   { title: 'Slice House By Tony Gemignani', location: { lat: 37.7696380615234, lng: -122.447540283203 } },
   { title: '3', location: { lat: 37.7775382995605, lng: -122.43798828125 } },
@@ -19,12 +19,11 @@ function initMap() {
     zoom: 14
   });
 
-  var largeInfoWindow = new google.maps.InfoWindow();
   var bounds = new google.maps.LatLngBounds();
 
-  for (var i = 0; i < locations.length; i++) {
-    var position = locations[i].location;
-    var title = locations[i].title;
+  for (var i = 0; i < initialLocations.length; i++) {
+    var position = initialLocations[i].location;
+    var title = initialLocations[i].title;
     var marker = new google.maps.Marker({
       map: map,
       position: position,
@@ -34,6 +33,8 @@ function initMap() {
     });
     markers.push(marker);
     bounds.extend(marker.position);
+
+    var largeInfoWindow = new google.maps.InfoWindow();
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfoWindow)
     });
@@ -52,44 +53,49 @@ function initMap() {
   }
 }
 
+
+
 function AppViewModel() {
   var self = this;
-  self.locs = ko.observableArray(locations);
+  self.locs = ko.observableArray(initialLocations);
 
-  this.pizzaFilter = ko.observable();
+  self.pizzaFilter = ko.observable();
 
-  this.filterPizzaPlaces = function() {
-    console.log(this.pizzaFilter());
+  self.filterPizzaPlaces = function() {
+    var filtered = initialLocations.filter(function(loc) {
+      return loc.title.match(self.pizzaFilter());
+    });
+    self.locs(filtered);
+    this.resetMarkers();
+    this.setMarkers(filtered);
   }
 
   this.resetMarkers = function() {
     for (var i=0; i < markers.length; i++) {
         markers[i].setMap(null);
     }
-    // setTimeout(function() {
-    //   var largeInfoWindow = new google.maps.InfoWindow();
-    //   var bounds = new google.maps.LatLngBounds();
-    //   for (var i = 0; i < locations.length; i++) {
-    //     var position = locations[i].location;
-    //     var title = locations[i].title;
-    //     var marker = new google.maps.Marker({
-    //       map: map,
-    //       position: position,
-    //       title: title,
-    //       animation: google.maps.Animation.DROP,
-    //       id: i
-    //     });
-    //     markers.push(marker);
-    //     bounds.extend(marker.position);
-    //     marker.addListener('click', function() {
-    //       populateInfoWindow(this, largeInfoWindow)
-    //     });
-    //   }
-    // },2000);
   }
+
+  this.setMarkers = function(locations) {
+    for (var i = 0; i < locations.length; i++) {
+      var position = locations[i].location;
+      var title = locations[i].title;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: position,
+        title: title,
+        animation: google.maps.Animation.DROP,
+        id: i
+      });
+      markers.push(marker);
+      marker.addListener('click', function() {
+        populateInfoWindow(this, largeInfoWindow)
+      });
+    }
+  }
+
   this.locationClick = function() {
     console.log('testing1234');
-    self.resetMarkers();
   }
 
 }
