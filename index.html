@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <title>FEND Neighborhood Map</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
+  <ul data-bind="foreach: locations">
+    <li data-bind="text: title, click: $parent.locationClick"></li>
+  </ul>
   <div id="map"></div>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuRxIDKGh0-8mrgLru1xamBghmvNPh6b0&callback=initMap" async defer></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js'></script>

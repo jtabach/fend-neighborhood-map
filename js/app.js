@@ -20,9 +20,9 @@ function initMap() {
   });
 
   var largeInfoWindow = new google.maps.InfoWindow();
+  var bounds = new google.maps.LatLngBounds();
 
   for (var i = 0; i < locations.length; i++) {
-
     var position = locations[i].location;
     var title = locations[i].title;
     var marker = new google.maps.Marker({
@@ -33,10 +33,12 @@ function initMap() {
       id: i
     });
     markers.push(marker);
+    bounds.extend(marker.position);
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfoWindow)
-    })
+    });
   }
+  map.fitBounds(bounds);
 
   function populateInfoWindow(marker, infowindow) {
     if (infowindow.marker != marker) {
@@ -51,8 +53,11 @@ function initMap() {
 }
 
 function AppViewModel() {
-  this.name = 'Jeff';
-  console.log('1234');
+  this.locs = ko.observableArray(locations);
+
+  this.locationClick = function() {
+    console.log('testing1234');
+  }
 }
 
 ko.applyBindings(new AppViewModel());
