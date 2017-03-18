@@ -4,11 +4,11 @@ var map;
 // https://api.yelp.com/v2/search/?location=San Francisco, CA&category_filter=pizza
 
 var initialLocations = [
-  { title: 'Katani Pizza', location: { lat: 37.773193359375,  lng: -122.450645446777 } },
-  { title: 'Slice House By Tony Gemignani', location: { lat: 37.7696380615234, lng: -122.447540283203 } },
-  { title: '3', location: { lat: 37.7775382995605, lng: -122.43798828125 } },
-  { title: '4', location: { lat: 37.7997956, lng: -122.4080729 } },
-  { title: '5', location: { lat: 37.7484746, lng: -122.4199315} }
+  { index: 0, title: 'Katani Pizza', location: { lat: 37.773193359375,  lng: -122.450645446777 } },
+  { index: 1, title: 'Slice House By Tony Gemignani', location: { lat: 37.7696380615234, lng: -122.447540283203 } },
+  { index: 2, title: '3', location: { lat: 37.7775382995605, lng: -122.43798828125 } },
+  { index: 3, title: '4', location: { lat: 37.7997956, lng: -122.4080729 } },
+  { index: 4, title: '5', location: { lat: 37.7484746, lng: -122.4199315} }
 ];
 
 var markers = [];
@@ -47,9 +47,12 @@ function populateInfoWindow(marker, infowindow) {
     infowindow.setContent('<div>' + marker.title + '</div>');
     infowindow.open(map, marker);
     infowindow.addListener('closeclick', function() {
-      console.log(infowindow);
       infowindow.setPosition(null);
     });
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+      marker.setAnimation(google.maps.Animation.null);
+    },1400);
   }
 }
 
@@ -98,8 +101,12 @@ function AppViewModel() {
     }
   }
 
-  this.locationClick = function() {
-    console.log('testing1234');
+  this.locationClick = function(location) {
+    markers[location.index].setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+      markers[location.index].setAnimation(google.maps.Animation.null);
+    },1400);
+    google.maps.event.trigger(markers[location.index], 'click');
   }
 
   this.showListView = ko.observable(true);
