@@ -1,17 +1,52 @@
 html, body {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
+  position: relative;
+}
+
+.map-view {
+  height: 100%;
+  float: left;
+  width: calc(100% - 240px);
+}
+
+.map-header {
+  background: darkgray;
+  height: 48px;
+  padding: 11px;
 }
 
 #map {
   height: 100%;
-  display: inline-block;
-  width: 80%;
+  /*display: inline-block;*/
+  /*width: calc(100% - 200px);*/
+  /*float: left;*/
+}
+
+.list-view {
+  /*position: absolute;*/
+  float: left;
+  /*z-index: 1;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  width: 240px;
+  background: black;
+  color: white;
+  height: 100%;
 }
 
 ul {
-  display: inline-block;
-  width: 19%;
-  vertical-align: top;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+li {
+
+}
+
+input {
+  color: black !important;
+  width: 100%;
 }
