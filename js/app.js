@@ -28,7 +28,6 @@ function initMap() {
       map: map,
       position: position,
       title: title,
-      animation: google.maps.Animation.DROP,
       id: i
     });
     markers.push(marker);
@@ -89,7 +88,6 @@ function AppViewModel() {
         map: map,
         position: position,
         title: title,
-        animation: google.maps.Animation.DROP,
         id: i
       });
       markers.push(marker);
@@ -103,6 +101,8 @@ function AppViewModel() {
   this.locationClick = function() {
     console.log('testing1234');
   }
+
+  this.showListView = ko.observable(true);
 }
 
 ko.applyBindings(new AppViewModel());

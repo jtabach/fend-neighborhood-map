@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FEND Neighborhood Map</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 
-  <div class="list-view">
-    Pizza Spots in SF
+  <div class="list-view" data-bind="visible: showListView">
+    <div class="list-header">
+      Pizza Spots in SF
+    </div>
     <input data-bind="textInput: pizzaFilter, event: { keyup: filterPizzaPlaces }">
     <ul data-bind="foreach: locs">
       <li data-bind="text: title, click: $parent.locationClick"></li>
@@ -22,6 +25,8 @@
     <div id="map"></div>
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuRxIDKGh0-8mrgLru1xamBghmvNPh6b0&callback=initMap" async defer></script>
+  <script src="https://code.jquery.com/jquery-3.2.0.min.js" integrity="sha256-JAW99MJVpJBGcbzEuXk4Az05s/XyDdBomFqNlM3ic+I=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.1/knockout-min.js'></script>
   <script src="js/app.js"></script>
 </body>

@@ -7,13 +7,13 @@ html, body {
 }
 
 .map-view {
-  height: 100%;
+  height: calc(100% - 48px);
   float: left;
   width: calc(100% - 240px);
 }
 
 .map-header {
-  background: darkgray;
+  background: #003366;
   height: 48px;
   padding: 11px;
 }
@@ -32,21 +32,37 @@ html, body {
   /*top: 0;*/
   /*left: 0;*/
   width: 240px;
-  background: black;
+  background: #001a33;
   color: white;
   height: 100%;
 }
 
+.list-header {
+  height: 48px;
+  padding-top: 12px;
+  padding-left: 10px;
+}
+
 ul {
-  padding-left: 0;
+  padding-left: 8px;
+  padding-right: 8px;
   list-style-type: none;
 }
 
 li {
+  padding: 12px 8px;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+}
 
+li:hover {
+  background: #00264d;
 }
 
 input {
   color: black !important;
   width: 100%;
+  height: 32px;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
 }
