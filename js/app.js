@@ -28,6 +28,10 @@ function initMap() {
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfoWindow);
     });
+    google.maps.event.addDomListener(window, "resize", function() {
+     google.maps.event.trigger(map, "resize");
+     map.fitBounds(bounds);
+    });
   }
   map.fitBounds(bounds);
 }
