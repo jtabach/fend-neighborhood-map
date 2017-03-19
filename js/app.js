@@ -2,6 +2,7 @@ var map;
 var markers = [];
 var initialLocations = [];
 
+// Get request to Zomato API for pizza places in SF
 $.ajax({
   url: 'https://developers.zomato.com/api/v2.1/search?entity_id=306&q=pizza',
   headers: {'user-key': 'e3f3f0b858452108ebf56c9166e50583'},
