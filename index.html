@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FEND Neighborhood Map</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
   <div class="list-view" data-bind="visible: showListView">
     <div class="list-header">
-      Pizza Spots in SF
+      <h3>Pizza Spots in SF</h3>
     </div>
     <input data-bind="textInput: pizzaFilter, event: { keyup: filterPizzaPlaces }" placeholder="Search for Pizza!">
+    <h4>Results</h4>
     <ul data-bind="foreach: locs">
       <li data-bind="text: title, click: $parent.locationClick"></li>
     </ul>
