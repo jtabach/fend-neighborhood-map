@@ -17,9 +17,11 @@ $.ajax({
           lat: parseFloat(obj.restaurant.location.latitude),
           lng: parseFloat(obj.restaurant.location.longitude)
         }
-      })
+      });
     });
+    // Initiate Map
     initMap();
+    // Initiate knockout bindings
     ko.applyBindings(new AppViewModel());
   },
   fail: function(err) {
