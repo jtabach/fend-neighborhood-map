@@ -1,21 +1,39 @@
 var map;
 var markers = [];
-var initialLocations = [
-  { index: 0, title: 'Katani Pizza', location: { lat: 37.773193359375,  lng: -122.450645446777 } },
-  { index: 1, title: 'Slice House By Tony Gemignani', location: { lat: 37.7696380615234, lng: -122.447540283203 } },
-  { index: 2, title: 'and', location: { lat: 37.7775382995605, lng: -122.43798828125 } },
-  { index: 3, title: 'anything', location: { lat: 37.7997956, lng: -122.4080729 } },
-  { index: 4, title: 'aone', location: { lat: 37.7484746, lng: -122.4199315} }
-];
+var initialLocations = [];
+
+$.ajax({
+  url: 'https://developers.zomato.com/api/v2.1/search?entity_id=306&q=pizza',
+  headers: {'user-key': 'e3f3f0b858452108ebf56c9166e50583'},
+  success: function(data) {
+    data.restaurants.forEach(function(obj, i) {
+      initialLocations.push({
+        index: i,
+        title: obj.restaurant.name,
+        url: obj.restaurant.url,
+        location: {
+          lat: parseFloat(obj.restaurant.location.latitude),
+          lng: parseFloat(obj.restaurant.location.longitude)
+        }
+      })
+    });
+    initMap();
+    ko.applyBindings(new AppViewModel());
+  },
+  fail: function(err) {
+    console.log(err);
+    alert('There was an error, please refresh');
+  }
+});
 
 // Helpers for continuity between list and map
 viewHelper = {
-
-  createMarker: function(map, position, title, i) {
+  createMarker: function(map, position, title, i, url) {
     return new google.maps.Marker({
       map: map,
       position: position,
       title: title,
+      url: url,
       icon: 'https://www.google.com/mapfiles/marker_orange.png',
       id: i
     });
@@ -23,7 +41,7 @@ viewHelper = {
 
   populateInfoWindow: function(marker, infowindow) {
       infowindow.marker = marker;
-      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.setContent('<div><a href=' + marker.url + '>' + marker.title + '</a></div>');
       infowindow.open(map, marker);
       infowindow.addListener('closeclick', function() {
         infowindow.setPosition(null);
@@ -52,7 +70,8 @@ viewHelper = {
     for (var i = 0; i < locations.length; i++) {
       var position = locations[i].location;
       var title = locations[i].title;
-      var marker = viewHelper.createMarker(map, position, title, i);
+      var url = locations[i].url;
+      var marker = viewHelper.createMarker(map, position, title, i, url);
       var largeInfoWindow = new google.maps.InfoWindow();
       marker.addListener('click', function() {
         viewHelper.populateInfoWindow(this, largeInfoWindow);
@@ -80,7 +99,8 @@ function initMap() {
   for (var i = 0; i < initialLocations.length; i++) {
     var position = initialLocations[i].location;
     var title = initialLocations[i].title;
-    var marker = viewHelper.createMarker(map, position, title, i);
+    var url = initialLocations[i].url;
+    var marker = viewHelper.createMarker(map, position, title, i, url);
     markers.push(marker);
     bounds.extend(marker.position);
     var largeInfoWindow = new google.maps.InfoWindow();
@@ -118,5 +138,3 @@ function AppViewModel() {
 
   self.showListView = ko.observable(true);
 }
-
-ko.applyBindings(new AppViewModel());
