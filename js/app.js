@@ -6,9 +6,9 @@ var map;
 var initialLocations = [
   { index: 0, title: 'Katani Pizza', location: { lat: 37.773193359375,  lng: -122.450645446777 } },
   { index: 1, title: 'Slice House By Tony Gemignani', location: { lat: 37.7696380615234, lng: -122.447540283203 } },
-  { index: 2, title: '3', location: { lat: 37.7775382995605, lng: -122.43798828125 } },
-  { index: 3, title: '4', location: { lat: 37.7997956, lng: -122.4080729 } },
-  { index: 4, title: '5', location: { lat: 37.7484746, lng: -122.4199315} }
+  { index: 2, title: 'and', location: { lat: 37.7775382995605, lng: -122.43798828125 } },
+  { index: 3, title: 'anything', location: { lat: 37.7997956, lng: -122.4080729 } },
+  { index: 4, title: 'aone', location: { lat: 37.7484746, lng: -122.4199315} }
 ];
 
 var markers = [];
@@ -28,11 +28,11 @@ function initMap() {
       map: map,
       position: position,
       title: title,
+      icon: 'https://www.google.com/mapfiles/marker_orange.png',
       id: i
     });
     markers.push(marker);
     bounds.extend(marker.position);
-
     var largeInfoWindow = new google.maps.InfoWindow();
     marker.addListener('click', function() {
       populateInfoWindow(this, largeInfoWindow);
@@ -42,25 +42,21 @@ function initMap() {
 }
 
 function populateInfoWindow(marker, infowindow) {
-  if (infowindow.marker != marker) {
     infowindow.marker = marker;
     infowindow.setContent('<div>' + marker.title + '</div>');
     infowindow.open(map, marker);
     infowindow.addListener('closeclick', function() {
       infowindow.setPosition(null);
     });
+    markers.forEach(function(marker) {
+      marker.setIcon('https://www.google.com/mapfiles/marker_orange.png');
+    });
     marker.setAnimation(google.maps.Animation.BOUNCE);
+    marker.setIcon('https://www.google.com/mapfiles/marker_green.png');
     setTimeout(function() {
       marker.setAnimation(google.maps.Animation.null);
     },1400);
-  }
 }
-
-function setMarkers(locations) {
-
-}
-
-
 
 function AppViewModel() {
   var self = this;
@@ -81,6 +77,7 @@ function AppViewModel() {
     for (var i=0; i < markers.length; i++) {
         markers[i].setMap(null);
     }
+    markers = [];
   }
 
   this.setMarkers = function(locations) {
@@ -91,23 +88,32 @@ function AppViewModel() {
         map: map,
         position: position,
         title: title,
+        icon: 'https://www.google.com/mapfiles/marker_orange.png',
         id: i
       });
-      markers.push(marker);
       var largeInfoWindow = new google.maps.InfoWindow();
       marker.addListener('click', function() {
-        populateInfoWindow(this, largeInfoWindow)
+        populateInfoWindow(this, largeInfoWindow);
       });
+      markers.push(marker);
     }
   }
 
+  this.setAllMarkersRed = function(markers) {
+    markers.forEach(function(marker) {
+      marker.setIcon('https://www.google.com/mapfiles/marker_orange.png');
+    });
+  }
+
   this.locationClick = function(location) {
-    markers[location.index].setAnimation(google.maps.Animation.BOUNCE);
+    self.setAllMarkersRed(markers);
+    google.maps.event.trigger(markers[location.index], 'click');
     setTimeout(function() {
       markers[location.index].setAnimation(google.maps.Animation.null);
     },1400);
-    google.maps.event.trigger(markers[location.index], 'click');
   }
+
+
 
   this.showListView = ko.observable(true);
 }
