@@ -13,15 +13,12 @@
     <div class="list-header">
       Pizza Spots in SF
     </div>
-    <input data-bind="textInput: pizzaFilter, event: { keyup: filterPizzaPlaces }">
+    <input data-bind="textInput: pizzaFilter, event: { keyup: filterPizzaPlaces }" placeholder="Search for Pizza!">
     <ul data-bind="foreach: locs">
       <li data-bind="text: title, click: $parent.locationClick"></li>
     </ul>
   </div>
   <div class="map-view">
-    <div class="map-header">
-      <button>List View</button>
-    </div>
     <div id="map"></div>
   </div>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuRxIDKGh0-8mrgLru1xamBghmvNPh6b0&callback=initMap" async defer></script>

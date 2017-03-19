@@ -7,30 +7,17 @@ html, body {
 }
 
 .map-view {
-  height: calc(100% - 48px);
+  height: 100%;
   float: left;
   width: calc(100% - 240px);
 }
 
-.map-header {
-  background: #003366;
-  height: 48px;
-  padding: 11px;
-}
-
 #map {
   height: 100%;
-  /*display: inline-block;*/
-  /*width: calc(100% - 200px);*/
-  /*float: left;*/
 }
 
 .list-view {
-  /*position: absolute;*/
   float: left;
-  /*z-index: 1;*/
-  /*top: 0;*/
-  /*left: 0;*/
   width: 240px;
   background: #001a33;
   color: white;
@@ -65,4 +52,16 @@ input {
   height: 32px;
   margin-left: 8px !important;
   margin-right: 8px !important;
+  width: 224px;
+}
+
+@media (max-width: 480px) {
+  .map-view {
+    width: 100%;
+  }
+
+  .list-view {
+    width: 100%;
+    height: auto;
+  }
 }
