@@ -11,6 +11,7 @@ $.ajax({
         index: i,
         title: obj.restaurant.name,
         url: obj.restaurant.url,
+        address: obj.restaurant.location.address,
         location: {
           lat: parseFloat(obj.restaurant.location.latitude),
           lng: parseFloat(obj.restaurant.location.longitude)
@@ -28,12 +29,13 @@ $.ajax({
 
 // Helpers for continuity between list and map
 viewHelper = {
-  createMarker: function(map, position, title, i, url) {
+  createMarker: function(map, position, title, i, url, address) {
     return new google.maps.Marker({
       map: map,
       position: position,
       title: title,
       url: url,
+      address: address,
       icon: 'https://www.google.com/mapfiles/marker_orange.png',
       id: i
     });
@@ -41,7 +43,7 @@ viewHelper = {
 
   populateInfoWindow: function(marker, infowindow) {
       infowindow.marker = marker;
-      infowindow.setContent('<div><a href=' + marker.url + '>' + marker.title + '</a></div>');
+      infowindow.setContent('<div><a href=' + marker.url + '>' + marker.title + '</a><p>' + marker.address + '</p></div>');
       infowindow.open(map, marker);
       infowindow.addListener('closeclick', function() {
         infowindow.setPosition(null);
@@ -71,7 +73,8 @@ viewHelper = {
       var position = locations[i].location;
       var title = locations[i].title;
       var url = locations[i].url;
-      var marker = viewHelper.createMarker(map, position, title, i, url);
+      var address = locations[i].address;
+      var marker = viewHelper.createMarker(map, position, title, i, url, address);
       var largeInfoWindow = new google.maps.InfoWindow();
       marker.addListener('click', function() {
         viewHelper.populateInfoWindow(this, largeInfoWindow);
@@ -100,7 +103,8 @@ function initMap() {
     var position = initialLocations[i].location;
     var title = initialLocations[i].title;
     var url = initialLocations[i].url;
-    var marker = viewHelper.createMarker(map, position, title, i, url);
+    var address = initialLocations[i].address;
+    var marker = viewHelper.createMarker(map, position, title, i, url, address);
     markers.push(marker);
     bounds.extend(marker.position);
     var largeInfoWindow = new google.maps.InfoWindow();
