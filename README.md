@@ -1,4 +1,4 @@
-### Neighborhood Map (Pizza Locator)
+### [Neighborhood Map (Pizza Locator)](https://jtabach.github.io/fend-neighborhood-map/)
 
 Find pizza places in San Francisco
 
@@ -17,3 +17,7 @@ Find pizza places in San Francisco
 
 - Google Maps API
 - Zomato API
+
+### Give it a test run!
+
+[https://jtabach.github.io/fend-neighborhood-map/](https://jtabach.github.io/fend-neighborhood-map/)
