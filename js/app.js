@@ -122,6 +122,10 @@ function initMap() {
   map.fitBounds(bounds);
 }
 
+function handlerMapsError() {
+  alert('map did not load, please refresh page');
+}
+
 function AppViewModel() {
   var self = this;
   self.locs = ko.observableArray(initialLocations);
