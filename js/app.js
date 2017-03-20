@@ -130,7 +130,7 @@ function AppViewModel() {
 
   self.filterPizzaPlaces = function() {
     var filtered = initialLocations.filter(function(loc) {
-      return loc.title.match(self.pizzaFilter());
+      return loc.title.toLowerCase().match(self.pizzaFilter().toLowerCase());
     });
     self.locs(filtered);
     viewHelper.resetMarkers();
