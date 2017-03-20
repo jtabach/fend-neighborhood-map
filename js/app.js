@@ -4,7 +4,7 @@ var initialLocations = [];
 
 // Get request to Zomato API for pizza places in SF
 $.ajax({
-  url: 'https://developers.zomato.com/api/v2.1/search?entity_id=306&q=pizza',
+  url: 'https://developers.zomato.com/api/v2.1/search?entity_id=306&entity_type=city&q=pizza',
   headers: {'user-key': 'e3f3f0b858452108ebf56c9166e50583'},
   success: function(data) {
     data.restaurants.forEach(function(obj, i) {
@@ -24,7 +24,7 @@ $.ajax({
     // Initiate knockout bindings
     ko.applyBindings(new AppViewModel());
   },
-  fail: function(err) {
+  error: function(err) {
     console.log(err);
     alert('There was an error, please refresh');
   }
