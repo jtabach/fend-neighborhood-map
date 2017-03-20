@@ -46,7 +46,7 @@ viewHelper = {
 
   populateInfoWindow: function(marker, infowindow) {
       infowindow.marker = marker;
-      infowindow.setContent('<div><a href=' + marker.url + '>' + marker.title + '</a><p>' + marker.address + '</p></div>');
+      infowindow.setContent('<div><a href=' + marker.url + ' target="_blank">' + marker.title + '</a><p>' + marker.address + '</p></div>');
       infowindow.open(map, marker);
       infowindow.addListener('closeclick', function() {
         infowindow.setPosition(null);
