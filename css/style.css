@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -12,7 +13,7 @@ html, body {
   width: calc(100% - 240px);
 }
 
-#map {
+.map-canvas {
   height: 100%;
 }
 
