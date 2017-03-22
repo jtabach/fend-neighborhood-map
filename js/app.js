@@ -122,7 +122,7 @@ function initMap() {
   map.fitBounds(bounds);
 }
 
-function handlerMapsError() {
+function handleMapsError() {
   alert('map did not load, please refresh page');
 }
 
